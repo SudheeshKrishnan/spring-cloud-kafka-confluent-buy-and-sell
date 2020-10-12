@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    stream:
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers:
+          - pkc-lgwgm.eastus2.azure.confluent.cloud:9092
+          configuration:
+            sasl:
+              mechanism: PLAIN 
+              jaas:
+               config: org.apache.kafka.common.security.plain.PlainLoginModule required username="SQBFW4EG47FHFWSI" password="qzbQtcO+gN/IlsU4h7vJhwzb1waKAHJVdsxejVhnfL+4YQamXP09OU81LVm+b0i3";
+            security: 
+              protocol: SASL_SSL
+      bindings:
+        input:
+         binder: kafka
+         destination: stock-ticks-avro
+         content-type: text/plain
+         group: input-group-1
+        output:
+          binder: kafka
+          destination: stock-ticks-avro
+          group: output-group-1
+          content-type: application/json
+      
+url: ${DAYTRADER-GATEWAY:https://localhost}:2443/portfolios/{uid}/orders?mode=
